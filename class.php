@@ -120,18 +120,16 @@ class CA
         $xpath = new DomXPath($dom);
         $elements = $xpath->query('//table[@class="tabelas-equipamentos"]/tbody/tr[3]/td[2]');
 
+        // Caso não consiga executar a query (Não encontrou os dados requisitados), ele retorna que não foi banida.
         if ($elements->length == 0)
             echo "Não";
 
         if (!is_null($elements)) {
             foreach ($elements as $element) {
-                $nodes = $element->childNodes;
-                foreach ($nodes as $node) {
-
-                    if ($node->nodeValue == $nickname) {
-                        echo "Sim";
-                    }
-                }
+                if ($element->textContent == $nickname)
+                    echo "Sim";
+                else
+                    echo "Não";
             }
         }
     }
